@@ -5,7 +5,6 @@ import 'providers/audio_player_provider.dart';
 import 'screens/audio_player.dart';
 
 void main() {
-  Provider.debugCheckInvalidValueType = null;
   runApp(const MyApp());
 }
 
@@ -15,10 +14,8 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
-        providers: [
-        Provider<AudioPlayerProvider>(create: (_) => AudioPlayerProvider()),
-    ],
+    return ListenableProvider(
+        create: (context) => AudioPlayerProvider(),
     child : MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
