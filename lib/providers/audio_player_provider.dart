@@ -11,7 +11,7 @@ import '../models/audio.dart';
 class AudioPlayerProvider with ChangeNotifier {
   final AudioPlayer _audioPlayer = AudioPlayer();
   var playList = <Audio>[];
-  int selectedSongIndex = 1;
+  int selectedSongIndex = 0;
   var streamCtrl = StreamController.broadcast();
 
   loadSongsFromAsset() async {
@@ -27,6 +27,12 @@ class AudioPlayerProvider with ChangeNotifier {
     streamCtrl.addError('No Songs are available to show');
   }
 
+  onPlayerCompletion(){
+    _audioPlayer.onPlayerCompletion.listen((event) {
+      notifyListeners();
+    });
+  }
+
 
 
   playOrPause() async {
@@ -38,7 +44,7 @@ class AudioPlayerProvider with ChangeNotifier {
       case PlayerState.PAUSED:
         await _audioPlayer.resume();
         break;
-      case PlayerState.STOPPED:
+      case PlayerState.STOPPED:case PlayerState.COMPLETED:
         setSelectedSong();
         break;
     }

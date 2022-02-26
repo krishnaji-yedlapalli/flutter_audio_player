@@ -20,7 +20,9 @@ class _AudioPlayerViewState extends State<AudioPlayerView> {
   }
 
   afterBuild(){
-    Provider.of<AudioPlayerProvider>(context, listen: false).loadSongsFromAsset();
+    Provider.of<AudioPlayerProvider>(context, listen: false)
+    ..loadSongsFromAsset()
+    ..onPlayerCompletion();
   }
 
   @override
